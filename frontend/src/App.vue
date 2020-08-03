@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-      <Header />
+      <!-- <Header /> -->
         <!-- <nav id="router">
           <ul>
             <li><router-link :to="{ name:'List' }">목록</router-link></li>
@@ -8,24 +8,25 @@
             <li><router-link :to="{ name:'VisitCreate' }">방명록</router-link></li>
           </ul>
         </nav> -->
-    <div class="container">
+    <!-- <div class="container">
       <div class="row">
         <div class="col-10"><router-view /> </div>
         <div class="col-2"><Aside /></div>
         
       </div> 
-    </div>
+    </div> -->
+    <router-view />
   </div>
 </template>
 <script>
-  import Header from '@/components/common/Header.vue'
-  import Aside from '@/views/post/Aside.vue'
+  // import Header from '@/components/common/Header.vue'
+  // import Aside from '@/views/post/Aside.vue'
   // import List from '@/views/post/List.vue'
 
   export default {
     components: {
-      Header,
-      Aside,
+      // Header,
+      // Aside,
     },
   }
 </script>

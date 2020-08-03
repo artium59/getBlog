@@ -2,7 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 // import constants from '../lib/constants.js'
-
+// home
+import Main from '@/views/home/Main.vue'
 // post
 import List from '../views/post/List.vue'
 import Read from '../views/post/Read.vue'
@@ -24,6 +25,12 @@ Vue.use(VueRouter)
 
 
 const routes = [
+  // home
+  {
+    path:'/',
+    name:'Main',
+    component:Main
+  },
   // user
   {
     path: '/user/join',
@@ -52,7 +59,7 @@ const routes = [
   },
   // post
   {
-    path: '/',
+    path: '/list',
     name: 'List',
     component: List
   },
@@ -92,7 +99,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const publicPages = ['Login', 'Join', 'List']
+  const publicPages = ['Login', 'Join', 'List','Main']
   const authPages = ['Login', 'Join']
 
   const authRequired = !publicPages.includes(to.name)
