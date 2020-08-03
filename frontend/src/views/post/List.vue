@@ -1,5 +1,6 @@
 <template>
   <div class="container list">
+    <Header />
     <button class="btn btn-light" @click="movePage">글쓰기</button>
     
     <div class="list-cards row d-flex justify-content-around">
@@ -19,9 +20,12 @@
 <script>
 import moment from 'moment';
 import { mapGetters } from 'vuex';
-
+import Header from '@/components/common/Header.vue'
 export default {
   name: "List",
+  components:{
+    Header
+  },
   computed: {
   ...mapGetters(['posts']),
   },
