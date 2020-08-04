@@ -13,6 +13,7 @@
           <p>{{getFormatDate(item.createDate)}}</p>
         </div>     
       </div>
+    <Aside />
     </div>
   </div>
 </template>
@@ -21,10 +22,12 @@
 import moment from 'moment';
 import { mapGetters } from 'vuex';
 import Header from '@/components/common/Header.vue'
+import Aside from '@/views/post/Aside.vue'
 export default {
   name: "List",
   components:{
-    Header
+    Header,
+    Aside,
   },
   computed: {
   ...mapGetters(['posts']),

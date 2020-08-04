@@ -1,14 +1,14 @@
 <template>
   <div>
   <b-navbar toggleable="lg" type="light" variant="light" id="design">
-    <b-navbar-brand href="#">GetBlog</b-navbar-brand>
+    <b-navbar-brand href="/">GetBlog</b-navbar-brand>
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
-        <b-nav-item href="/blog/create">BlogList</b-nav-item>
+        <b-nav-item href="#">BlogList</b-nav-item>
         <b-nav-item href="/blog/create">BlogCreate</b-nav-item>
-        <b-nav-item href="">MyBlog</b-nav-item>
+        <b-nav-item href="#">MyBlog</b-nav-item>
         <!-- <b-nav-item href="#" disabled>Disabled</b-nav-item> -->
       </b-navbar-nav>
 
@@ -16,7 +16,7 @@
       <b-navbar-nav class="ml-auto">
         <b-nav-form>
           <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
-          <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
+          <b-button pill size="sm" class="my-2 my-sm-0" variant="outline-dark" type="submit">Search</b-button>
         </b-nav-form>
 
         <!-- <b-nav-item-dropdown text="Lang" right>
@@ -29,7 +29,7 @@
         <b-nav-item-dropdown right>
           <!-- Using 'button-content' slot -->
           <template v-slot:button-content>
-            <em>User</em>
+            <strong><b-avatar variant="light"></b-avatar> Login</strong>
           </template>
           <b-dropdown-item href="#">Profile</b-dropdown-item>
           <b-dropdown-item href="#">Sign Out</b-dropdown-item>
@@ -47,7 +47,7 @@ export default {
 </script>
 
 <style>
-#design {
-    background:rgba(255,255,255,1);
-}
+/* #design {
+    /* background-color:lightsteelblue !important; 
+}*/
 </style>
