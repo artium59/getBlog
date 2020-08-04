@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 // import constants from '../lib/constants.js'
 // home
 import Main from '@/views/home/Main.vue'
+import BlogCreate from '@/views/home/BlogCreate.vue'
 // post
 import List from '../views/post/List.vue'
 import Read from '../views/post/Read.vue'
@@ -30,6 +31,11 @@ const routes = [
     path:'/',
     name:'Main',
     component:Main
+  },
+  {
+    path:'/blog/create',
+    name:'BlogCreate',
+    component:BlogCreate
   },
   // user
   {

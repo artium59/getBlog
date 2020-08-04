@@ -1,12 +1,13 @@
 <template>
   <div>
     <Navbar />
-    <div class="container">
+    <!-- <div class="container"> -->
         <Carousel />
         <BlogList />    
-    </div>
-
-    
+    <!-- </div> -->
+    <footer>
+        <p>Copyright @2020 Getblog.com All rights reserved.</p>
+    </footer>
   </div>
 </template>
 

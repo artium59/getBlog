@@ -1,13 +1,15 @@
 <template>
   <div>
   <b-navbar toggleable="lg" type="light" variant="light" id="design">
-    <b-navbar-brand href="#">NavBar</b-navbar-brand>
+    <b-navbar-brand href="#">GetBlog</b-navbar-brand>
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
-        <b-nav-item href="#">Link</b-nav-item>
-        <b-nav-item href="#" disabled>Disabled</b-nav-item>
+        <b-nav-item href="/blog/create">BlogList</b-nav-item>
+        <b-nav-item href="/blog/create">BlogCreate</b-nav-item>
+        <b-nav-item href="">MyBlog</b-nav-item>
+        <!-- <b-nav-item href="#" disabled>Disabled</b-nav-item> -->
       </b-navbar-nav>
 
       <!-- Right aligned nav items -->
@@ -17,12 +19,12 @@
           <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
         </b-nav-form>
 
-        <b-nav-item-dropdown text="Lang" right>
+        <!-- <b-nav-item-dropdown text="Lang" right>
           <b-dropdown-item href="#">EN</b-dropdown-item>
           <b-dropdown-item href="#">ES</b-dropdown-item>
           <b-dropdown-item href="#">RU</b-dropdown-item>
           <b-dropdown-item href="#">FA</b-dropdown-item>
-        </b-nav-item-dropdown>
+        </b-nav-item-dropdown> -->
 
         <b-nav-item-dropdown right>
           <!-- Using 'button-content' slot -->
