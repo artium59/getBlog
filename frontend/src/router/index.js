@@ -22,6 +22,9 @@ import VisitCreate from '@/views/board/VisitCreate.vue'
 //err
 import NotFoundPage from '@/views/err/NotFoundPage.vue'
 
+// hong place
+// 1.home
+import Home from '@/views/template3/home/Home.vue'
 Vue.use(VueRouter)
 
 
@@ -94,6 +97,14 @@ const routes = [
     path: '*',
     name: 'NotFoundPage',
     component: NotFoundPage
+  },
+
+  // hong place
+  // 1. home
+  {
+    path:'/template3',
+    name:'Home',
+    component:Home
   },
 
 ]
