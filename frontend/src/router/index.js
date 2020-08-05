@@ -22,9 +22,11 @@ import VisitCreate from '@/views/board/VisitCreate.vue'
 //err
 import NotFoundPage from '@/views/err/NotFoundPage.vue'
 
-// hong place
+// hong place(template3)
 // 1.home
 import Home from '@/views/template3/home/Home.vue'
+// 2.post
+// import List3 from '@/views/template3/post/List3.vue'
 Vue.use(VueRouter)
 
 
@@ -99,13 +101,18 @@ const routes = [
     component: NotFoundPage
   },
 
-  // hong place
+  // hong place(template3)
   // 1. home
   {
     path:'/template3',
     name:'Home',
     component:Home
   },
+  // {
+  //   path:'/template3/list3',
+  //   name:'list3',
+  //   component:List3
+  // },
 
 ]
 
