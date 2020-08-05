@@ -1,7 +1,7 @@
 <template>
   <div>
   <b-navbar toggleable="lg" type="light" variant="light" id="design">
-    <b-navbar-brand href="/">GetBlog</b-navbar-brand>
+    <b-navbar-brand href="/"><img src="@/assets/logo2.png" alt="logoimage"></b-navbar-brand>
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
     <b-collapse id="nav-collapse" is-nav>
@@ -50,4 +50,8 @@ export default {
 /* #design {
     /* background-color:lightsteelblue !important; 
 }*/
+img {
+  width:50px;
+  height: 50px;
+}
 </style>
