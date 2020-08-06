@@ -27,6 +27,7 @@ import NotFoundPage from '@/views/err/NotFoundPage.vue'
 import Home from '@/views/template3/home/Home.vue'
 // 2.post
 // import List3 from '@/views/template3/post/List3.vue'
+
 Vue.use(VueRouter)
 
 
@@ -108,11 +109,7 @@ const routes = [
     name:'Home',
     component:Home
   },
-  // {
-  //   path:'/template3/list3',
-  //   name:'list3',
-  //   component:List3
-  // },
+
 
 ]
 
