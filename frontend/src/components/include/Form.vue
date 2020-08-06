@@ -113,7 +113,7 @@ export default {
         });
     },
     moveList() {
-      this.$router.push('/');
+      this.$router.push('/temp1');
     },
   },
   created() {

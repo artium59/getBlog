@@ -45,7 +45,7 @@
         $ • Italian, Cafe
       </div>
 
-      <div>Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio seating.</div>
+      <div>{{post.content}}</div>
     </v-card-text>
 
     <v-divider class="mx-4"></v-divider>
@@ -80,7 +80,7 @@
   </v-card>
   <!-- <div><h1>여기에 나와야 돼</h1></div> -->
     <div class="text-center">
-      <router-link to="/"
+      <router-link to="/temp1"
         ><button class="btn btn-primary" id="listBtn">목록</button></router-link
       >&nbsp;
       <router-link :to="'/update?pno=' + post.pno"

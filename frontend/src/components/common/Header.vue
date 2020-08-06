@@ -125,6 +125,9 @@ export default {
     ...mapGetters(["isLogIn"]),
     ...mapState(['blogname'])
   },
+    mounted() {
+    this.$store.state.renderNum = 1
+  }
 };
 </script>
 
