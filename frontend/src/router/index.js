@@ -31,6 +31,8 @@ import Home from '@/views/template3/home/Home.vue'
 // +재완
 // lsit2
 import List2 from '@/views/post2/List2.vue'
+import Edit from '@/views/post2/Edit.vue'
+import Edit2 from '@/views/post2/EditorNot.vue'
 
 Vue.use(VueRouter)
 
@@ -93,6 +95,16 @@ const routes = [
     path: '/update',
     name: 'Update',
     component: Update,
+  },
+  {
+    path: '/edit',
+    name: 'Edit',
+    component: Edit,
+  },
+  {
+    path: '/edit2',
+    name: 'Edit2',
+    component: Edit2,
   },
   {
     path: '/delete',
