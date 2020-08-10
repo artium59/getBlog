@@ -1,44 +1,36 @@
 <template>
-  <div>
-    <Navbar />
-    <div class="container">
-        <Carousel />
-        <BlogList />    
+    <div>
+        <div class="imgCon">
+            <img src="@/assets/main.png" alt="mainImage">
+            <div class="startBtn">
+                <router-link to="/blogcreate"><button type="button" class="btn btn-outline-dark">시작하기</button></router-link>
+            </div>
+        </div>
     </div>
-
-    
-  </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import Navbar from '@/components/homepage/Navbar.vue'
-import Carousel from '@/components/homepage/Carousel.vue'
-import BlogList from '@/components/homepage/BlogList.vue'
 export default {
-  name: 'Main',
-  components: {
-    Navbar,
-    Carousel,
-    BlogList,
-  },
-  data() {
-      return {
-        slide: 0,
-        sliding: null,
-      }
-    },
-  // methods: {
-  //   onSlideStart(slide) {
-  //     this.sliding = true
-  //   },
-  //   onSlideEnd(slide) {
-  //     this.sliding = false
-  //   }
-  // }
+    name:'main',
+    mounted() {
+    this.$store.state.renderNum = 0
+  }
 }
 </script>
 
-<style>
+<style scoped>
+.imgCon {
+    /* width: 80vw; */
+
+}
+img {
+    width: 100%;
+}
+
+.startBtn {
+    margin-bottom: 5vh;
+    width: 100%;
+    border-radius: 1rem !important;
+}
 
 </style>

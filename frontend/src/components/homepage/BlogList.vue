@@ -2,13 +2,16 @@
   <b-container fluid class="p-4 bg-light">
   <b-row>
     <b-col>
-      <b-img thumbnail fluid src="https://picsum.photos/250/250/?image=60" alt="Image 1"></b-img>
+      <img src="@/assets/template/tmp1.png" alt="Template1" class="img-thumbnail">
+      <p>template1</p>
     </b-col>
     <b-col>
-      <b-img thumbnail fluid src="https://picsum.photos/250/250/?image=71" alt="Image 2"></b-img>
+      <img src="@/assets/template/tmp2.png" alt="Template2" class="img-thumbnail">
+      <p>template2</p>
     </b-col>
     <b-col>
-      <b-img thumbnail fluid src="https://picsum.photos/250/250/?image=89" alt="Image 3"></b-img>
+      <img src="@/assets/template/tmp3.png" alt="Template3" class="img-thumbnail">
+      <p>template3</p>
     </b-col>
   </b-row>
 </b-container>
@@ -20,6 +23,13 @@ export default {
 }  
 </script>
 
-<style>
+<style scoped>
+img {
+  width:100%;
+  height: 100%;
+}
+p {
+  margin-top:5px;
+}
 
 </style>

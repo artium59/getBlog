@@ -1,19 +1,86 @@
 <template>
   <div>
-    <h1>여기에 글 정보</h1>
+    <!-- <h1>여기에 글 정보</h1>
     <hr />
     <br />
     <br />
     <h1>title : {{ post.title }}</h1>
-    <br />
+    <br /> -->
     <!-- <h4>{{ nickname }}</h4> -->
-    <br />
+    <!-- <br />
     <h4>content : {{ post.content }}</h4>
     <br />
     <br />
-    <hr />
+    <hr /> -->
+    <v-card
+    :loading="loading"
+    class="mx-auto my-12"
+    max-width="374"
+  >
+    <v-img
+      height="250"
+      src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+    ></v-img>
+
+    <v-card-title>{{ post.title }}</v-card-title>
+
+    <v-card-text>
+      <v-row
+        align="center"
+        class="mx-0"
+      >
+        <v-rating
+          :value="4.5"
+          color="amber"
+          dense
+          half-increments
+          readonly
+          size="14"
+        ></v-rating>
+
+        <div class="grey--text ml-4">4.5 (413)</div>
+      </v-row>
+
+      <div class="my-4 subtitle-1">
+        $ • Italian, Cafe
+      </div>
+
+      <div>{{ post.content }}</div>
+    </v-card-text>
+
+    <v-divider class="mx-4"></v-divider>
+
+    <v-card-title>Tonight's availability</v-card-title>
+
+    <v-card-text>
+      <v-chip-group
+        v-model="selection"
+        active-class="deep-purple accent-4 white--text"
+        column
+      >
+        <v-chip>5:30PM</v-chip>
+
+        <v-chip>7:30PM</v-chip>
+
+        <v-chip>8:00PM</v-chip>
+
+        <v-chip>9:00PM</v-chip>
+      </v-chip-group>
+    </v-card-text>
+
+    <v-card-actions>
+      <v-btn
+        color="deep-purple lighten-2"
+        text
+        @click="reserve"
+      >
+        Reserve
+      </v-btn>
+    </v-card-actions>
+  </v-card>
+  <!-- <div><h1>여기에 나와야 돼</h1></div> -->
     <div class="text-center">
-      <router-link to="/"
+      <router-link to="/temp1"
         ><button class="btn btn-primary" id="listBtn">목록</button></router-link
       >&nbsp;
       <router-link :to="'/update?pno=' + post.pno"
@@ -138,6 +205,14 @@ export default {
       .catch(() => {
         alert('삭제 처리시 에러가 발생했습니다.');
       });
+    },
+    getNaverBlog() {
+      const headers = {'X-Naver-Client-Id':'PbOyaByRiX_P1pzboQ3m', 'X-Naver-Client-Secret':'AClAi8Sq6M'}
+      this.$http.get('https://openapi.naver.com/v1/search/blog',{
+        params: {
+          title: '운암동루덴스'
+        }, headers
+      } )
     }
   },
 };

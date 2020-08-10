@@ -61,5 +61,13 @@ public class PostsService{
     @Transactional(readOnly = true)
 	public String getUserNickname(Long pno) {
 		return postsRepository.getUserNickname(pno);
-	}
+    }
+    
+    @Transactional(readOnly = true)
+    public List<PostsListResponseDto> findByTitleContaining(String title) {
+        return postsRepository.findByTitleContaining(title).stream()
+                .map(PostsListResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
 }

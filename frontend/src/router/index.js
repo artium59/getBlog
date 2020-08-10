@@ -4,6 +4,8 @@ import VueRouter from 'vue-router'
 // import constants from '../lib/constants.js'
 // home
 import Main from '@/views/home/Main.vue'
+import BlogCreate from '@/views/home/BlogCreate.vue'
+
 // post
 import List from '../views/post/List.vue'
 import Read from '../views/post/Read.vue'
@@ -18,10 +20,15 @@ import MyPage from '@/views/user/MyPage.vue'
 import VisitPage from '@/views/board/VisitPage.vue'
 import VisitCreate from '@/views/board/VisitCreate.vue'
 
-
 //err
 import NotFoundPage from '@/views/err/NotFoundPage.vue'
 
+import store from '@/store'
+
+// hong place(template3)
+// 1.home
+import Home from '@/views/template3/home/Home.vue'
+// +재완
 // lsit2
 import List2 from '@/views/post2/List2.vue'
 
@@ -34,6 +41,11 @@ const routes = [
     path:'/',
     name:'Main',
     component:Main
+  },
+  {
+    path:'/blogcreate',
+    name:'BlogCreate',
+    component:BlogCreate
   },
   // user
   {
@@ -63,14 +75,9 @@ const routes = [
   },
   // post
   {
-    path: '/list',
+    path: '/temp1',
     name: 'List',
     component: List
-  },
-  {
-    path: '/list2',
-    name: 'List2',
-    component: List2
   },
   {
     path: '/create',
@@ -92,11 +99,36 @@ const routes = [
     name: 'Delete',
     component: Delete,
   },
+  {
+    path: '/oauth2/redirect',
+    name: 'SNSLogin',
+    redirect: (to) => {
+      console.log(to.query.token);
+      store.commit('setCookie', to.query.token);
+
+      return {
+        path: '/', query: null
+      }
+    }
+  },
   // err
   {
     path: '*',
     name: 'NotFoundPage',
     component: NotFoundPage
+  },
+    // hong place(template3)
+  // 1. home
+  {
+    path:'/temp3',
+    name:'Home',
+    component:Home
+  },
+  // 재완
+  {
+    path: '/temp2',
+    name: 'List2',
+    component: List2
   },
 
 ]
@@ -108,7 +140,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const publicPages = ['Login', 'Join', 'List','Main']
+  const publicPages = ['Login', 'Join', 'List', 'Main']
   const authPages = ['Login', 'Join']
 
   const authRequired = !publicPages.includes(to.name)

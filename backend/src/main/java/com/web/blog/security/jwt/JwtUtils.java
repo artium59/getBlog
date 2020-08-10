@@ -1,6 +1,7 @@
 package com.web.blog.security.jwt;
 
 import java.util.Date;
+import java.util.List;
 
 import com.web.blog.security.service.UserDetailsImpl;
 
@@ -16,25 +17,35 @@ import io.jsonwebtoken.*;
 public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-    @Value("${web-blog.app.auth.tokenSecret}")
+    @Value("${web-blog.auth.tokenSecret}")
     private String jwtSecret;
 
-    @Value("${web-blog.app.auth.tokenExpirationMsec}")
+    @Value("${web-blog.auth.tokenExpirationMsec}")
     private int jwtExpirationMs;
 
     public String generateJwtToken(Authentication authentication) {
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
         return Jwts.builder()
-                .setSubject((userPrincipal.getUsername()))
+                .setSubject((userPrincipal.getName()))
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
+                .claim("email", userPrincipal.getEmail())
+                .claim("role", userPrincipal.getAuthorities())
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }
 
+    public Long getUidFromJwtToken(String token) {
+        return Long.parseLong(Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject());
+    }
+
     public String getEmailFromJwtToken(String token) {
-        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().get("email", String.class);
+    }
+
+    public Object getAuthoritiesFromJwtToken(String token) {
+        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().get("email", List.class);
     }
 
     public boolean validateJwtToken(String authToken) {

@@ -107,7 +107,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 로그인 없이 접속 가능한 주소들
                 .antMatchers("/", "/error", "/favicon.ico", "/**/*.png", "/**/*.gif", "/**/*.svg", "/**/*.jpg", "/**/*.html", "/**/*.css", "/**/*.js").permitAll()
 
-                .antMatchers("/auth/**", "/oauth2/**", "/api/post/**", "/api/reply/**").permitAll()
+                .antMatchers("/auth/**", "/oauth2/**", "/account/**", "/api/post/**", "/api/reply/**").permitAll()
 
                 // admin만 접속 가능한 주소들
                 .antMatchers("/api/admin/**").hasRole("ADMIN")

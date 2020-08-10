@@ -7,20 +7,29 @@ import javax.validation.Valid;
 import com.web.blog.dao.user.UserDao;
 import com.web.blog.model.BasicResponse;
 import com.web.blog.payload.request.SignupRequest;
+import com.web.blog.payload.request.UserRequest;
+import com.web.blog.payload.response.UserResponse;
+import com.web.blog.security.jwt.JwtUtils;
 import com.web.blog.model.user.User;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -35,31 +44,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AccountController {
 
     @Autowired
+    AuthenticationManager authenticationManager;
+
+    @Autowired
     UserDao userDao;
 
-    /* @GetMapping("/login")
-    @ApiOperation(value = "로그인")
-    public Object login(@RequestParam(required = true) final String email,
-            @RequestParam(required = true) final String password) {
+    @Autowired
+    JwtUtils jwtUtils;
 
-        Optional<User> userOpt = userDao.findUserByEmailAndPassword(email, password);
+    @Autowired
+    PasswordEncoder encoder;
 
-        ResponseEntity response = null;
-
-        if (userOpt.isPresent()) {
-            final BasicResponse result = new BasicResponse();
-            result.status = true;
-            result.data = "success";
-            result.token = 1;
-            response = new ResponseEntity<>(result, HttpStatus.OK);
-        } else {
-            response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        }
-
-        return response;
-    }
-
-    @PostMapping("/signup")
+    /* @PostMapping("/signup")
     @ApiOperation(value = "가입하기")
     public Object signup(@Valid @RequestBody SignupRequest request) {
         // 이메일, 닉네임 중복처리 필수
@@ -87,7 +83,6 @@ public class AccountController {
         userDao.save(user1);
 
         result.data = "success";
-        result.message = "Congratulations!";
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     } */
@@ -95,58 +90,65 @@ public class AccountController {
     @GetMapping("/userinfo")
     @ApiOperation(value = "유저 정보 얻기")
     public Object getUserInfo(@RequestParam(required = true) final String accessToken) {
-        
+        User user = userDao.getUserByUid(jwtUtils.getUidFromJwtToken(accessToken))
+                            .orElseThrow(() -> new IllegalArgumentException("유저 정보 얻기 실패"));
+
+        return new ResponseEntity<>(new UserResponse(user), HttpStatus.OK);
+    }
+
+    @PutMapping("/modify")
+    @ApiOperation(value = "수정하기")
+    public Object modify(@Valid @RequestBody UserRequest request) {
         final BasicResponse result = new BasicResponse();
+        User user = userDao.getUserByUid(jwtUtils.getUidFromJwtToken(request.getAccessToken()))
+                            .orElseThrow(() -> new IllegalArgumentException("유저 정보 얻기 실패"));
+
+        try {
+            user.setNickname(request.getNickname());
+            user.setPassword(encoder.encode(request.getPassword()));
+            user.setIntroduce(request.getIntroduce());
+            user.setImageUrl(request.getImageUrl());
+
+            userDao.save(user);
+
+            result.status = true;
+            result.data = "success";
+
+            Authentication authentication = authenticationManager.authenticate(
+                        new UsernamePasswordAuthenticationToken(user.getEmail(), request.getPassword()));
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            result.accessToken = jwtUtils.generateJwtToken(authentication);
+
+        } catch (Exception e) {
+            result.status = false;
+            result.data = "fail";
+            result.message = "회원 정보 수정 실패";
+
+            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        }
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    /* @PostMapping("/modify")
-    @ApiOperation(value = "수정하기")
-    public Object modify(@Valid @RequestBody SignupRequest request) {
-        User user = userDao.getUserByEmail(request.getEmail());
+    @DeleteMapping("/withdrawal")
+    @ApiOperation(value = "탈퇴하기")
+    public Object withdrawal(@Valid @RequestBody String accessToken) {
         final BasicResponse result = new BasicResponse();
 
-        if (user == null) {
+        try {
+            userDao.deleteByUid(jwtUtils.getUidFromJwtToken(accessToken));
+
+            result.status = true;
+            result.data = "success";
+        } catch (Exception e) {
             result.status = false;
             result.data = "fail";
+            result.message = "회원 탈퇴 실패";
 
-            return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
         }
-        else {
-            userDao.save(User.builder()
-                            .uid(user.getUid())
-                            .password(request.getPassword())
-                            .nickname(request.getNickname())
-                            .build());
 
-            result.status = true;
-            result.data = "success";
-            result.token = 1;
-
-            return new ResponseEntity<>(result, HttpStatus.OK);
-        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
-
-    @GetMapping("/withdrawal")
-    @ApiOperation(value = "탈퇴하기")
-    public Object withdrawal(@RequestParam(required = true) final String email) {
-        User user = userDao.getUserByEmail(email);
-
-        ResponseEntity response = null;
-
-        if (user != null) {
-            userDao.deleteUserByEmail(email);
-
-            final BasicResponse result = new BasicResponse();
-            result.status = true;
-            result.data = "success";
-            result.token = 0;
-            response = new ResponseEntity<>(result, HttpStatus.OK);
-        } else {
-            response = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        }
-
-        return response;
-    } */
 }

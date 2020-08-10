@@ -66,4 +66,10 @@ public class PostsApiController{
         return postsService.getUserNickname(pno);
     }
 
+    @GetMapping("/api/post/search/{title}")
+    @ApiOperation(value = "검색 게시글 불러오기")
+    public List<PostsListResponseDto> findByTitleContaining(@PathVariable String title) {
+        return postsService.findByTitleContaining(title);
+    }
+
 }

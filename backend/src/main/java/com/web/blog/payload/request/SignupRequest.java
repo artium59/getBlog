@@ -27,7 +27,7 @@ public class SignupRequest {
     @NotNull
     String nickname;
 
-    private Set<String> role;
+    // private Set<String> role;
 
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
@@ -38,6 +38,6 @@ public class SignupRequest {
     public String getNickname() { return nickname; }
     public void setNickname(String nickname) { this.nickname = nickname; }
 
-    public Set<String> getRole() { return this.role; }
-    public void setRole(Set<String> role) { this.role = role; }
+    // public Set<String> getRole() { return this.role; }
+    // public void setRole(Set<String> role) { this.role = role; }
 }

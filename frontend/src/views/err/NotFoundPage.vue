@@ -4,7 +4,7 @@
 
             <div class="middle">
                 <div style="text-align: center; color: red; font-size: 40px; margin-bottom: 5%;">
-                    <h1>404 ERROR</h1>
+                    <h1>ERROR</h1>
                 </div>
                 <h1>Sorry, this page isn't available.</h1>
                 <h4>The link you followed may be broken, or the page may have been removed.</h4>

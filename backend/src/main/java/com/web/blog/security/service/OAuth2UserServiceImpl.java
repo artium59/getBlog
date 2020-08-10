@@ -1,10 +1,15 @@
 package com.web.blog.security.service;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 import com.web.blog.Exception.OAuth2AuthenticationProcessingException;
+import com.web.blog.dao.user.RoleDao;
 import com.web.blog.dao.user.UserDao;
 import com.web.blog.model.user.EAuthProvider;
+import com.web.blog.model.user.ERole;
+import com.web.blog.model.user.Role;
 import com.web.blog.model.user.User;
 import com.web.blog.security.oauth2.user.OAuth2UserInfo;
 import com.web.blog.security.oauth2.user.OAuth2UserInfoFactory;
@@ -24,6 +29,9 @@ public class OAuth2UserServiceImpl extends DefaultOAuth2UserService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private RoleDao roleDao;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest oAuth2UserRequest) throws OAuth2AuthenticationException {
@@ -65,11 +73,16 @@ public class OAuth2UserServiceImpl extends DefaultOAuth2UserService {
     private User registerNewUser(OAuth2UserRequest oAuth2UserRequest, OAuth2UserInfo oAuth2UserInfo) {
         User user = new User();
 
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleDao.findByName(ERole.ROLE_USER)
+                    .orElseThrow(() -> new RuntimeException("OAuth2UserServiceImpl Error: Role is not found.")));
+
         user.setProvider(EAuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()));
-        user.setUid(oAuth2UserInfo.getId());
+        // user.setUid(oAuth2UserInfo.getId());
         user.setNickname(oAuth2UserInfo.getName());
         user.setEmail(oAuth2UserInfo.getEmail());
         user.setImageUrl(oAuth2UserInfo.getImageUrl());
+        user.setRoles(roles);
 
         return userDao.save(user);
     }

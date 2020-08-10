@@ -9,8 +9,8 @@ public class BasicResponse {
     public String data;
     @ApiModelProperty(value = "object", position = 3)
     public Object object;
-    @ApiModelProperty(value = "token", position = 4)
-    public Object token;
+    @ApiModelProperty(value = "accessToken", position = 4)
+    public Object accessToken;
     @ApiModelProperty(value = "message", position = 5)
     public String message;
 }

@@ -42,7 +42,7 @@ import io.swagger.annotations.ApiOperation;
         @ApiResponse(code = 404, message = "Not Found", response = BasicResponse.class),
         @ApiResponse(code = 500, message = "Failure", response = BasicResponse.class) })
 
-// @CrossOrigin(origins = { "http://localhost:3000" })
+@CrossOrigin(origins = { "http://localhost:3000" })
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -104,35 +104,36 @@ public class AuthController {
                                 signUpRequest.getEmail(),
                                 encoder.encode(signUpRequest.getPassword()));
 
-        Set<String> strRoles = signUpRequest.getRole();
+        // Set<String> strRoles = signUpRequest.getRole();
+        Set<String> strRoles = null;
         Set<Role> roles = new HashSet<>();
 
         if (strRoles == null) {
             Role userRole = roleDao.findByName(ERole.ROLE_USER)
                             .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roles.add(userRole);
-        } else {
+        } /* else {
             strRoles.forEach(role -> {
                 switch (role) {
                 case "admin":
                     Role adminRole = roleDao.findByName(ERole.ROLE_ADMIN)
-                                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                                        .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                     roles.add(adminRole);
 
                     break;
                 case "mod":
                     Role modRole = roleDao.findByName(ERole.ROLE_MODERATOR)
-                                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                                        .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                     roles.add(modRole);
 
                     break;
                 default:
                     Role userRole = roleDao.findByName(ERole.ROLE_USER)
-                                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                                        .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                     roles.add(userRole);
                 }
             });
-        }
+        } */
 
         user.setRoles(roles);
         System.out.println(user);

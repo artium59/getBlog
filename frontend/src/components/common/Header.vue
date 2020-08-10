@@ -5,7 +5,7 @@
         <!-- <router-link to="/" class="navbar-brand"><strong>SS_log</strong></router-link> -->
         <div id="navbarname" class="animate__animated animate__bounce">
           <a class="navbarname" href="/">
-            <h4>싸피로그</h4>
+            <h4>{{blogname}}</h4>
           </a>
         </div>
         <button
@@ -57,6 +57,7 @@
                 </li >-->
                 <li class="nav-item active">
                   <button type="button" class="btn btn-light" @click="logout">로그아웃</button>
+                  <!-- <v-gravatar email="somebody@somewhere.com" :size="30"/> -->
                 </li>
               </span>
             </ul>
@@ -103,7 +104,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapState } from "vuex";
 import Login from "@/views/user/Login.vue";
 // import $ from 'jquery'
 
@@ -122,7 +123,11 @@ export default {
   },
   computed: {
     ...mapGetters(["isLogIn"]),
+    ...mapState(['blogname'])
   },
+  mounted() {
+  this.$store.state.renderNum = 1
+  }
 };
 </script>
 

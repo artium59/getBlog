@@ -39,11 +39,7 @@ CREATE TABLE reply (
   `pno` int NOT NULL,
   `replytext` varchar(1000) NOT NULL,
   `replyer` varchar(50) NOT NULL,
-<<<<<<< HEAD
-  `create_date` datetime DEFAULT current_timestamp(),
-=======
   `regtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
->>>>>>> b4c8e7325791ea8d525da983de40ff15377cc5d9
   PRIMARY KEY (rno),
   CONSTRAINT fk_post FOREIGN KEY (pno) REFERENCES posts(pno)
 );

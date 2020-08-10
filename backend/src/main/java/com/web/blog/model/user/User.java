@@ -1,5 +1,3 @@
-// 하단 DB 설정 부분은 Sub PJT II에서 데이터베이스를 구성한 이후에 주석을 해제하여 사용.
-
 package com.web.blog.model.user;
 
 import lombok.Builder;
@@ -12,17 +10,16 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.web.blog.model.posts.Posts;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Data
-@Table(	name = "users", 
-		uniqueConstraints = { 
-			@UniqueConstraint(columnNames = "email") 
-		})
+@Table(	name = "users",
+        uniqueConstraints = { 
+            @UniqueConstraint(columnNames = "email") 
+        })
 //NON_NULL 사용시 parameter가 null인 경우에 제외
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class User {
@@ -32,12 +29,12 @@ public class User {
     private Long uid;
 
     @NotBlank
-	@Size(max = 20)
+    @Size(max = 20)
     private String nickname;
 
     @NotBlank
-	@Size(max = 50)
-	@Email
+    @Size(max = 50)
+    @Email
     private String email;
 
     @Column(nullable = false)
@@ -45,26 +42,29 @@ public class User {
 
     private String imageUrl;
 
+    String introduce;
+
     @JsonIgnore
-    @NotBlank
-	@Size(max = 120)
+    // @NotBlank
+    @Size(max = 120)
     private String password;
 
     // @NotBlank
     @Enumerated(EnumType.STRING)
     private EAuthProvider provider;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(	name = "user_roles", 
-				joinColumns = @JoinColumn(name = "user_id"), 
+    // https://dzone.com/articles/why-set-is-better-than-list-in-manytomany
+    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+    @JoinTable(	name = "user_roles",
+                joinColumns = @JoinColumn(name = "user_id"), 
                 inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
     public User() {}
 
-	public User(String nickname, String email, String password) {
-		this.nickname = nickname;
-		this.email = email;
+    public User(String nickname, String email, String password) {
+        this.nickname = nickname;
+        this.email = email;
         this.password = password;
         this.provider = EAuthProvider.local;
     }
@@ -72,7 +72,7 @@ public class User {
     @Builder
     public User(Long uid, String nickname, String password) {
         this.uid = uid;
-		this.nickname = nickname;
+        this.nickname = nickname;
         this.password = password;
         this.provider = EAuthProvider.local;
     }

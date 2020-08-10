@@ -19,4 +19,6 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
 
     @Query("SELECT u.nickname FROM Posts p, User u WHERE p.pno = :pno and p.uid = u.uid")
     String getUserNickname(@Param("pno") Long pno);
+
+    List<Posts> findByTitleContaining(@Param("title") String title);
 }
