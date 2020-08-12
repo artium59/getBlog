@@ -268,6 +268,22 @@
                       </template>
                       <span class="UNDERBAR">오른쪽 정렬</span>
                     </v-tooltip>
+                    <div class="buttons">
+                      <input
+                        v-if="html_switch===true"
+                        class="btn btn-primary m-1"
+                        type="button"
+                        value="에디터로 보기"
+                        @click="convertToEditor"
+                      />
+                      <input
+                        v-if="html_switch===false"
+                        class="btn btn-primary m-1"
+                        type="button"
+                        value="HTML로 보기"
+                        @click="convertToHTML"
+                      />
+                    </div>
                   </v-row>
 
                   <div class="col-1-none"></div>
@@ -280,12 +296,14 @@
 
               <div class="buttons">
                 <input
+                  v-if="html_switch===true"
                   class="btn btn-primary m-1"
                   type="button"
                   value="에디터로 보기"
                   @click="convertToEditor"
                 />
                 <input
+                  v-if="html_switch===false"
                   class="btn btn-primary m-1"
                   type="button"
                   value="HTML로 보기"
@@ -298,7 +316,6 @@
         <button class="btn btn-primary m-4">글쓰기</button>
         <button class="btn btn-primary m-4">취소</button>
       </v-main>
-      
     </v-app>
   </div>
 </template>
@@ -319,15 +336,18 @@ export default {
     source: String,
   },
   data: () => ({
+    html_switch: false,
     drawer: null,
   }),
   methods: {
     convertToHTML: function () {
+      this.html_switch = true;
       $(".editorHTMLDIV").text($(".editorDIV").html());
       $(".editorHTMLDIV").show();
       $(".editorDIV").hide();
     },
     convertToEditor: function () {
+      this.html_switch = false;
       $(".editorDIV").html($(".editorHTMLDIV").text());
       $(".editorDIV").show();
       $(".editorHTMLDIV").hide();
