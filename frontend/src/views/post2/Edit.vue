@@ -1,50 +1,40 @@
 <template>
-  <div>
-    <div class="buttons">
-      <input type="button" class="BOLD" value="B" onclick="document.execCommand('bold')" />
-      <input type="button" class="ITALIC" value="Italic" onclick="document.execCommand('Italic')" />
-      <input type="button" class="UNDERBAR" value="abc" onclick="document.execCommand('Underline')" />
-      <input type="button" class="BAR" value="abc" onclick="document.execCommand('StrikeThrough')" />
-      <input
-        type="button"
-        class="aignLeft"
-        value="왼쪽 정렬"
-        onclick="document.execCommand('justifyleft')"
-      />
-      <input
-        type="button"
-        class="aignCenter"
-        value="가운데 정렬"
-        onclick="document.execCommand('justifycenter')"
-      />
-      <input
-        type="button"
-        class="aignRight"
-        value="오른쪽 정렬"
-        onclick="document.execCommand('justifyright')"
-      />
-    </div>
-    <div>
-      <div class="editorDIV" contenteditable="true"></div>
-      <div class="editorHTMLDIV"></div>
-    </div>
-    <div class="buttons">
-      <input type="button" value="에디터로 보기" onclick="convertToEditor()" />
-      <input type="button" value="HTML로 보기" onclick="convertToHTML()" />
-    </div>
+  <div class="Edit">
+    <button class="btn btn-primary" @click="myMarkDown">가자</button>
+    <div id="markdown" contenteditable></div>
+    <div v-if="text">{{ text }}</div><br>
+    <div v-if="text" >{{ markdown }}</div>
+
+    <div v-else>위에 내용을 적어주세요</div>
+    <br />
   </div>
 </template>
 
 <script>
-
 export default {
+  name: "Edit",
+  data: function () {
+    return {
+      text: "",
+      result: "",
+      markdown: "",
+    };
+  },
   methods: {
-    update(event) {
-      console.log(event);
+    myMarkDown() {
+      this.text = document.getElementById("markdown").innerText;
+      this.H2 = this.text.replace(/[#]{2}/g, "");
+      this.markdown = "<h2>" + this.H2 + "</h2>"
+
+      
     },
   },
+  
 };
 </script>
 
 <style scoped>
+.Edit {
+  margin: 50px;
+}
 </style>
