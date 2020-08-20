@@ -31,14 +31,12 @@
             <div class="grey--text ml-4">4.5 (413)</div>
           </v-row>
 
-          <div class="my-4 subtitle-1">$ • Italian, Cafe</div>
 
           <div>{{item.content}}</div>
         </v-card-text>
 
         <v-divider class="mx-4"></v-divider>
 
-        <v-card-title>Tonight's availability</v-card-title>
 
         <v-card-actions>
           {{ item.heart }}
