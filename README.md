@@ -1,4 +1,6 @@
-# 
+<p align="center"><img src="./frontend/src/assets/로고.png"></p>
+
+---
 
 ## backend
 
