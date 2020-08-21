@@ -1,13 +1,12 @@
 package com.web.blog.model.heart;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.junit.jupiter.api.Test;
 
-public class HeartRequestTest {
+import static org.junit.jupiter.api.Assertions.*;
 
+class HeartRequestTest {
     @Test
-    public void getAccessToken() {
+    void getAccessToken() {
         final HeartRequest heartRequest = new HeartRequest("accessToken", 1234L);
         final String accessToken = heartRequest.getAccessToken();
 
@@ -15,7 +14,7 @@ public class HeartRequestTest {
     }
 
     @Test
-    public void getPno() {
+    void getPno() {
         final HeartRequest heartRequest = new HeartRequest("accessToken", 1234L);
         Long pno = heartRequest.getPno();
 
