@@ -47,11 +47,15 @@ yarn lint
 ### Guides
 [Vue Guide](https://vuejs.org/v2/guide/)
 
+### DB
+<p align="center"><img src="./ERD.png"></p>
+
 ## Some issue to know
 1. This test environment is
     - backend
         - Spring Boot 2.2.2.RELEASE
         - Maven 3.6.3
-        - MariaDB 10.5.4 Stable
     - frontend
         - @Vue/cli 4.4.6
+    - DB
+        - MariaDB 10.5.4 Stable
